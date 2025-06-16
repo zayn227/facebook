@@ -105,6 +105,39 @@ def upload_to_youtube(video_path, title, description, tags):
     except Exception as e:
         print(f"YouTube upload ke dauran error: {e}")
 
+# Yeh naya function hai Facebook par upload karne ke liye
+def upload_to_facebook(video_path, title):
+    """Video ko Facebook Page par upload karta hai."""
+    print("\n--- Facebook Upload process shuru ho raha hai ---")
+    
+    page_id = os.environ.get("FACEBOOK_PAGE_ID")
+    page_access_token = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN")
+
+    if not page_id or not page_access_token:
+        print("Facebook Page ID ya Access Token nahi mila. Upload skip kiya ja raha hai.")
+        return
+
+    # Facebook Graph API ka video endpoint
+    url = f"https://graph-video.facebook.com/v20.0/{page_id}/videos"
+    
+    files = {
+        'source': open(video_path, 'rb')
+    }
+    params = {
+        'description': title,
+        'access_token': page_access_token
+    }
+
+    try:
+        print(f"Video '{title}' Facebook Page par upload ho rahi hai...")
+        response = requests.post(url, files=files, params=params)
+        response.raise_for_status()  # Agar koi error ho (jaise 400 ya 500) to exception raise karega
+        result = response.json()
+        print(f"Video safaltapurvak Facebook par post ho gayi! Post ID: {result.get('id')}")
+    except Exception as e:
+        print(f"Facebook upload ke dauran error: {e}")
+        print("Response:", response.text)
+
 def get_random_cloudinary_asset(folder, resource_type):
     """Cloudinary folder se random audio ya video nikalta hai."""
     try:
@@ -203,6 +236,8 @@ def merge_audio_video_and_cut():
         video_description = "Ek chhota prerna bhara video..."
         video_tags = ["motivation", "krishanji", "lord krishna"]
         upload_to_youtube(output_filepath, video_title, video_description, video_tags)
+        # Ab video ko Facebook par upload karein
+        upload_to_facebook(output_filepath, video_title)
 
     except Exception as e:
         print(f"Main process me error: {e}")
