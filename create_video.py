@@ -235,7 +235,7 @@ def merge_audio_video_and_cut():
         video_title = "Inspirational - Lord Krishna Says 🥰"
         video_description = "Ek chhota prerna bhara video..."
         video_tags = ["motivation", "krishanji", "lord krishna"]
-        # upload_to_youtube(output_filepath, video_title, video_description, video_tags)
+        upload_to_youtube(output_filepath, video_title, video_description, video_tags)
         # Ab video ko Facebook par upload karein
         upload_to_facebook(output_filepath, video_title)
 
