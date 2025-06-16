@@ -1,46 +1,36 @@
-# .github/workflows/daily_video_workflow.yml
-
-# Workflow ka naam, jo GitHub Actions tab me dikhega
 name: Daily Video Generator
 
 on:
-  # Yeh section batata hai ki workflow kab chalega
   schedule:
-    # Yeh cron job hai. '30 13 * * *' ka matlab hai har din 13:30 UTC.
-    # 7 PM IST (Indian Standard Time) = 13:30 UTC.
+    # Roz shaam 7 baje (13:30 UTC) chalega
     - cron: '30 13 * * *'
-  
-  # Isse aap "Actions" tab me जाकर "Run workflow" button se manually bhi chala sakte hain
   workflow_dispatch:
 
 jobs:
-  # Ek hi job hai is workflow me, jiska naam 'build-and-upload' hai
   build-and-upload:
-    # Yeh job Ubuntu (Linux) machine par chalega
     runs-on: ubuntu-latest
 
-    steps: # Kaam karne ke steps
-      # Step 1: Aapke code ko GitHub se runner machine par download karega
+    steps:
       - name: Code ko Checkout karna
         uses: actions/checkout@v3
 
-      # Step 2: Python ko set up karega
       - name: Python 3.9 ko Setup karna
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      # Step 3: requirements.txt me likhi saari libraries install karega
-      - name: Dependencies ko Install karna
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      
-      # Step 4: Python script ko run karega
-      - name: Video Banane aur Upload karne wali Script chalana
-        # 'env' section aapke GitHub Secrets ko script ke liye available karata hai
+      - name: FFMPEG Install karna (MoviePy ke liye zaruri)
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      # === YEH SABSE BADA AUR IMPORTANT CHANGE HAI ===
+      # Humne installation aur execution ko ek hi step me jod diya hai
+      - name: Dependencies Install karna aur Script Chalana
         env:
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
           GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
-        run: python create_video.py
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          echo "Installation complete. Running the script now..."
+          python create_video.py
