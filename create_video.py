@@ -110,8 +110,8 @@ def upload_to_facebook(video_path, title):
     """Video ko Facebook Page par upload karta hai."""
     print("\n--- Facebook Upload process shuru ho raha hai ---")
     
-    page_id = os.environ.get("PAGE_ID")
-    page_access_token = os.environ.get("ACCESS_TOKEN")
+    page_id = os.environ.get("FACEBOOK_PAGE_ID")
+    page_access_token = os.environ.get("FACEBOOK_PAGE_ACCESS_TOKEN")
 
     if not page_id or not page_access_token:
         print("Facebook Page ID ya Access Token nahi mila. Upload skip kiya ja raha hai.")
