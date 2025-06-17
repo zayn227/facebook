@@ -26,7 +26,7 @@ cloudinary.config(
 
 # --- Folder aur File ke Paths ---
 CLOUDINARY_AUDIO_FOLDER = "krishanjivoice"
-CLOUDINARY_VIDEO_FOLDER = "krishanji"
+CLOUDINARY_VIDEO_FOLDER = "krishanjiedits"
 OUTPUT_LOCAL_FOLDER = "output_videos"
 TEMP_DOWNLOAD_FOLDER = "temp_downloads"
 
