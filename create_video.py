@@ -1,5 +1,3 @@
-# create_video.py
- 
  import os
  import random
  import cloudinary
