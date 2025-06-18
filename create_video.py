@@ -236,9 +236,13 @@ def merge_audio_video_and_cut():
         print("Final video safaltapurvak save ho gayi.")
 
         # 6. Final video ko YouTube par upload karna
+     # 6. Final video ko YouTube par upload karna
         video_title = "Inspirational - Lord Krishna Says 🥰"
-        video_description = "Ek chhota prerna bhara video..."
-        video_tags = ["motivation", "krishanji", "lord krishna"]
+        video_description = """Ek chhota prerna bhara video jo aapke mann ko shanti aur jeevan ko disha de sakta hai. Shri Krishna ji ke divya vichaaron se prerit, is video mein aapko milenge unke gyaan ke anmol moti jo har jeevan ko roshan karte hain.
+🎵 Background Music: Vagmine - No Copyright Song (https://youtu.be/BlaQfSD2S_0?si=p9iEBUgenlIVPEEV) (All rights to the original creator)
+🎙️ Voiceover: Generated using ElevenLabs AI Voice
+🙏 Agar aapko video pasand aaye, toh like, share aur subscribe karna na bhoolein. Jai Shri Krishna! 🙏"""
+        video_tags = ["motivation", "krishanji", "lord krishna","inspiration" ,"shrikrishna" ,"hindimotivation"]
         upload_to_youtube(output_filepath, video_title, video_description, video_tags)
         # Ab video ko Facebook par upload karein
         upload_to_facebook(output_filepath, video_title)
